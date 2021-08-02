@@ -1,11 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState, useEffect } from 'react';
+import logo from "./logo.svg";
+import "./App.css";
+import { useState, useEffect } from "react";
 import React from "react";
 
 function Todo({ todo, index, completeTodo, removeTodo }) {
   return (
-    <div className="todo"
+    <div
+      className="todo"
       style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}
     >
       {todo.text}
@@ -14,13 +15,13 @@ function Todo({ todo, index, completeTodo, removeTodo }) {
         <button onClick={() => removeTodo(index)}>Remove</button>
       </div>
     </div>
-  )
-};
+  );
+}
 
 function TodoForm({ addTodo }) {
   const [newTodo, setNewTodo] = useState("");
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!newTodo) return;
     addTodo(newTodo);
@@ -33,7 +34,7 @@ function TodoForm({ addTodo }) {
         type="text"
         className="input"
         value={newTodo}
-        onChange={e => setNewTodo(e.target.value)}
+        onChange={(e) => setNewTodo(e.target.value)}
       />
     </form>
   );
@@ -41,7 +42,6 @@ function TodoForm({ addTodo }) {
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState("");
 
   const saveData = (newTodos) => {
     localStorage.setItem("todos", JSON.stringify(newTodos));
@@ -53,28 +53,27 @@ function App() {
     }
   }, []);
 
-  const addTodo = text => {
+  const addTodo = (text) => {
     const newTodos = [...todos, { text }];
     setTodos(newTodos);
     saveData(newTodos);
   };
 
-  const completeTodo = index => {
+  const completeTodo = (index) => {
     const newTodos = [...todos];
     if (newTodos[index].isCompleted === true)
       newTodos[index].isCompleted = false;
     else newTodos[index].isCompleted = true;
     setTodos(newTodos);
     saveData(newTodos);
-  }
+  };
 
-  const removeTodo = index => {
+  const removeTodo = (index) => {
     const newTodos = [...todos];
     newTodos.splice(index, 1);
     setTodos(newTodos);
     saveData(newTodos);
-  }
-
+  };
 
   return (
     <div className="app">
